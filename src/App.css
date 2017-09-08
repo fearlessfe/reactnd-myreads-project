@@ -9,10 +9,7 @@ body, .app {
 }
 
 /* main page */
-.app{
-  width:800px;
-  margin: 0 auto;
-}
+
 .list-books-title {
   padding: 10px 0;
   background: #2e7c31;
@@ -43,27 +40,8 @@ body, .app {
   border-bottom: 1px solid #dedede;
   text-align: center;
 }
-.bookshelf-books {
-  text-align: center;
-}
-nav ul{
-  margin: 15px auto;
-  padding: 0;
-  font-size: 20px;
-  text-align: center;
-  background-color: grey;
-}
 
-nav ul li{
-  
-  display: inline-block;
-  list-style: none;
-  padding: 0 20px;
-  
-}
-nav a{
-  text-decoration: none;
-}
+
 
 
 .open-search {
