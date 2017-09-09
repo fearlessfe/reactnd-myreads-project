@@ -6,27 +6,43 @@ import Book from './Book'
 class Search extends React.Component {
 	state = {
     query: '',
-    books: []
+    searchBooks: []
   }
-
+  
   updateQuery = (query) => {
-    const { myReads } = this.props
+    
+    const { books } =this.props
+
     this.setState({ query:query.trim() })
     if(query){
-      BooksAPI.search(query,20).then((books) => {
-      if (books && books.length) {
-        books.filter(book => {return !myReads.some(myBook => {return myBook.id === book.id})})
-        this.setState({ books});  
+      
+      BooksAPI.search(query,20).then((searchBooks) => {
+      if (searchBooks && searchBooks.length) {
+        searchBooks.forEach((searchBook,index) => {
+          
+          const bookIndex = books.findIndex((book) => {
+            return book.id === searchBook.id
+          })
+          
+          if(bookIndex !== -1){
+            
+            searchBooks[index] = Object.assign([], books[bookIndex]);
+            console.log(searchBook)
+          }
+          
+        })
+        this.setState({ searchBooks });
+          
       }
     })
     }else{
-      this.setState({ query: '',books: []});
+      this.setState({ query: '',searchBooks: []});
     }
   }
 
   render(){
     
-    const { books } = this.state
+    const { searchBooks } = this.state
     const { updateBooks } = this.props
     
 		return (
@@ -45,9 +61,10 @@ class Search extends React.Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {books.map(book => {
+            {searchBooks.map(book => {
               return (<Book
                         book={book}
+                        
                         key={book.id}
                         updateBooks={ updateBooks }
                       />)

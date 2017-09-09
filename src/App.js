@@ -27,14 +27,19 @@ class BooksApp extends React.Component {
 
 		if(bookIndex === -1) {
 			bookToChange.shelf = shelf
+			
 			tempBooks.push(bookToChange)
 		}else{
 			tempBooks[bookIndex].shelf = shelf
+			
 		}
-
+		
+		console.log(tempBooks)
 		BooksAPI.update(bookToChange,shelf).then(
 			this.setState({books: tempBooks})
+
 		)
+
 	}
 
   // get the books info 
@@ -48,6 +53,7 @@ class BooksApp extends React.Component {
 	render() {
     
     const { books } = this.state
+
 		return (
 			<div className="app">
 				
@@ -63,7 +69,7 @@ class BooksApp extends React.Component {
         <Route path="/search" render={ () => (
           
           <Search
-            myReads={ books }
+            books={ books }
             updateBooks={ this.updateBooks }
           />
         ) } />
